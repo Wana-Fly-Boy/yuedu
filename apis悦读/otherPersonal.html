@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>作者个人中心</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/personal.css">
+</head>
+<body>
+    <div class="container">
+        <div class="con_header">
+            <div class="guide">
+                <div class="title_l fl">
+                    <span id="t_APIS" class="pointer fl">APIS</span><span id="t_line" class="fl">|</span><span id="t_read" class="pointer fl">悦读项目</span>
+                </div>
+                <div class="title_r fr">
+                    <image src="images/5.png" width="36px" height="36px" id="icon" class="pointer"></image>
+                    <span id="name" class="pointer">吕璐</span>
+                    <image src="images/icon_arrow_down.png" id="up" class="pointer"></image>
+                    <image id="write" src="images/icon_write.png" class="pointer"></image>
+                    <span id="w_article" class="pointer">写文章</span>
+                    <div class="test_triangle_border" style="display: none;" id="tag">
+                        <div class="popup">
+                            <span><em></em></span>
+                            <ul>
+                                <li><image src="images/icon_user.png"></image><a href="personal.html">个人中心</a></li>
+                                <li><image src="images/icon_setting.png"></image><a href="userSet.html">账户设置</a></li>
+                                <li><image src="images/icon_exit.png"></image><a>退出登录</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="personal_bg">
+                <div class="person_img"><image src="images/6.png"></image></div>
+                <div class="person_icon"><image src="images/icon_girl.png"></image></div>
+                <div class="person_info">
+                    <span id="name_1">吕一</span><br />
+                    <span id="place">西安市</span>
+                    <span id="star">双鱼座</span>  
+                </div>
+            </div>
+        </div>
+        <div class="con_content">
+            <div class="box_ml">
+                <p>文章（10）</p>
+                <!-- <div class="part1">
+                    <div class="part1_img fl  pointer"><image src="images/2.png" width="396px" height="241px"></image></div>
+                    <div class="part1_con fl">
+                        <div class="part1_con_words">
+                            <p class="title_words">雾霾太重，AI和大数据怎样参与抗霾？</p>
+                            <p class="title_con">12月15日滴滴小巴业务正式上线，产品首期已在北京、成都部分区域开通。开通地区的用户可通过手机客户端滴滴出行来呼叫小巴，小巴会智能计算乘客上车点和下车点，乘客选择确认后，就会通知用户和小巴“约会”的时间和地点。</p>
+                        </div>
+                        <div class="part1_con_tips">
+                            <image src="images/6.png" width="36px" height="36px" class="img_1 fl pointer"></image>
+                            <span class="name_1 fl pointer">吕一</span>
+                            <span class="time_1 fl pointer">09:22</span>
+                            <image src="images/icon_thumb_up.png" class="icon_1 fl pointer"></image>
+                            <span class="star fl pointer">54</span>
+                            <image src="images/icon_saw.png" class="img_saw fl pointer"></image>
+                            <span class="explore fl pointer">2432</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="part1">
+                    <div class="part1_img fl pointer"><image src="images/3.png" width="396px" height="241px"></image></div>
+                    <div class="part1_con fl">
+                        <div class="part1_con_words">
+                            <p class="title_words">首设“虚拟站点”，滴滴小巴正式上线</p>
+                            <p class="title_con">12月15日滴滴小巴业务正式上线，产品首期已在北京、成都部分区域开通。开通地区的用户可通过手机客户端滴滴出行来呼叫小巴，小巴会智能计算乘客上车点和下车点，乘客选择确认后，就会通知用户和小巴“约会”的时间和地点。</p>
+                        </div>
+                        <div class="part1_con_tips">
+                            <image src="images/6.png" width="36px" height="36px" class="img_1 fl pointer"></image>
+                            <span class="name_1 fl pointer">吕一</span>
+                            <span class="time_1 fl pointer">09:22</span>
+                            <image src="images/icon_thumb_up.png" class="icon_1 fl pointer"></image>
+                            <span class="star fl pointer">54</span>
+                            <image src="images/icon_saw.png" class="img_saw fl pointer"></image>
+                            <span class="explore fl pointer">2432</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="loading">
+            <image src="images/icon_loading.png"></image><span>正在加载</span>
+        </div>
+        <div class="con_footer">
+            <a class="CopyRight">Copyright © 2017 apis.sh All Rights Reserved | 陕ICP备15013925号-3</a>
+        </div>
+    </div>
+</body>
+<script src="js/base.js"></script>
+<script src="js/ajax.js"></script>
+<script src="js/lazy_pre_load.js"></script>
+<script src="js/articleList.js"></script>
+<script>
+    var page = 1,limit = 2;
+    var count = -1;    
+    // //页面加载触发监听事件——图片预加载
+    // $Ael(document,'load',preLoadImg);
+
+    //页面滚动触发监听事件——图片懒加载
+    $Ael(document,'scroll',lazyLoad);
+
+    // 显示登录的头像和昵称
+    $Id('name').innerHTML = localStorage.name;
+    // $Id('icon').src = urlStatic+localStorage.avatar;
+
+    //ajax请求文章列表文章数据
+    ajaxXHR('get',url+'posts/list?page='+page+'&limit='+limit+'&user='+GetParam()["author_id"],function(data){
+        switch(data.code){
+            case "param_incomplete":
+            alert(data.message);
+            break;
+            case "param_error":
+            alert(data.message);
+            break;
+            case "account_not_found":
+            alert(data.message);
+            break;
+            default :
+                    // $Qs('.person_img > img').src = urlStatic + data.data.articles[0].author.avatar;
+                    if(data.data.articles[0].author.gender == 'man'){
+                        $Qs('.person_icon > img').src = './images/icon_boy.png';
+                    }else {
+                        $Qs('.person_icon > img').src = './images/icon_girl.png';
+                    }
+                    $Id('name_1').innerHTML = data.data.articles[0].author.name;
+                    $Id('place').innerHTML = data.data.articles[0].author.city;
+                    $Id('star').innerHTML = data.data.articles[0].author.constellations;
+                    loadArticle(data,page);         
+                    // window.onscroll = function(){//滚动事件触发执行函数，函数
+                    //         var timer = null;
+                    //         clearTimeout(timer);
+                    //         timer = setTimeout(function(){
+                    //             var loading = $Class('loading')[0];
+                    //             if (loading.getBoundingClientRect().top + loading.offsetHeight + 70 < document.documentElement.clientHeight) {
+                    //                 page++;
+                    //                 ajaxXHR('get',url+'posts/list?page='+page+'&limit='+limit+'&user='+GetParam()["author_id"],function(data){
+                    //                     if(data.code == 'SUCCESS'){
+                    //                         loadArticle(jsonData,page);
+                    //                     }
+                    //                 });
+                    //             }
+                    //     },2000);
+                    // }
+        }
+    });
+
+    var jsonData2 = {
+    "code":"SUCCESS",
+    "data":{
+        "articles":[
+            {
+                "_id":"5a17f9ce396c3149ac92aeae",
+                "title":"比起啃老，中国人更爱啃亲戚",
+                "cover":"cover/25316a9aafda0d9d680d6bf40154586a",
+                "abstract":"在中国，亲戚交往中有这样一种观点：“我们都是亲戚，计较这些干什么？” 于是，生活中多了这样一批亲戚： 来你家蹭吃蹭喝，稍微表示不满，就教训你不尊重亲戚，不是一家人。 钱不够花...",
+                "create_time":1511514175000,
+                "author":{
+                    "_id":"5a17f9c9396c3149ac92ae6e",
+                    "name":"槽值",
+                    "gender":"man",
+                    "constellations":"摩羯座",
+                    "avatar":"avatar/c166b26c480b42c315234131712b68c8",
+                    "city":[
+                        "上海 上海市"
+                    ]
+                },
+                "look_sum":98,
+                "praise_sum":10
+            },
+            {
+                "_id":"5a17f9ce396c3149ac92aeb8",
+                "title":"别特么每次一出事，就让我教孩子学会自保",
+                "cover":"cover/fd6e446c0fcf8b7ba0c14d8e2f69d27e",
+                "abstract":"最近听到最多的一句话是：“这世界怎么了？” 最发达的几个城市，幼儿园接二连三成为焦点的原因，竟是在刷新对人性下限的认识。 “宝贝，芥末是什么味道？” “疼……” “都什么时候...",
+                "create_time":1511509988000,
+                "author":{
+                    "_id":"5a17f9c9396c3149ac92ae6e",
+                    "name":"槽值",
+                    "gender":"man",
+                    "constellations":"摩羯座",
+                    "avatar":"avatar/c166b26c480b42c315234131712b68c8",
+                    "city":[
+                        "上海 上海市"
+                    ]
+                },
+                "look_sum":2061,
+                "praise_sum":114
+            },
+            {
+                "_id":"5a17f9ce396c3149ac92aec1",
+                "title":"“换头手术”，忽悠了没头脑的人",
+                "cover":"cover/e1841219ce7e4913791b77c26abfd89a",
+                "abstract":"“换头手术”把多年来人类对精神、大脑和人体之间的关系的争议重新推上风口浪尖。如果换头成功，“我”还是我么？ 11月17日，意大利神经学家塞尔焦·卡纳维洛（Sergio Can...",
+                "create_time":1511430734000,
+                "author":{
+                    "_id":"5a17f9c9396c3149ac92ae6e",
+                    "name":"槽值",
+                    "gender":"man",
+                    "constellations":"摩羯座",
+                    "avatar":"avatar/c166b26c480b42c315234131712b68c8",
+                    "city":[
+                        "上海 上海市"
+                    ]
+                },
+                "look_sum":2677,
+                "praise_sum":49
+            }
+        ]
+    },
+    "count":4
+};
+</script>
+</html>
